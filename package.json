@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run dev",
+    "start:server": "json-server --watch db.json --port 3005",
     "build": "webpack --config config/webpack.prod.js",
     "dev": "webpack serve --config config/webpack.dev.js",
     "test": "jest --watch",
