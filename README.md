@@ -25,3 +25,13 @@ is good to use.
 into the `Normalized Form`.
 
 For this project, the `Normalized Form` will be used.
+
+### Options for Data Fetching
+
+For this project (which is for practice), both `Async Thunk` functions and
+`Redux Toolkit Query` will be used.
+
+Async Thunk functions will handle users (i.e., fetching list of users, creating user,
+and deleting user).
+
+Redux Toolkit Query will be used to handle albums and photos.
