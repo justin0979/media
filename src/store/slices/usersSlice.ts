@@ -8,7 +8,7 @@ interface UsersType {
 interface UsersState {
   data: UsersType[];
   isLoading: boolean;
-  error: Object | null;
+  error: Error | null;
 }
 
 const usersSlice = createSlice({
