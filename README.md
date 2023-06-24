@@ -62,3 +62,23 @@ Redux Toolkit Query will be used to handle albums and photos.
 | :----------: | :------------------: | :----------------------: | :------------------: |
 | **property** |     `isLoading`      |          `data`          |       `error`        |
 |   **type**   |       boolean        | Array of objects (users) | null \| error object |
+
+For every request, there will be multiple actions. `isLoading` will be set to true/false
+and either receive a successful response or receive an error.
+
+-   Start request and successfully get response
+-   Start request and receive error.
+
+When a request is started, Async Thunk Function will automatically dispatch an action.
+This action will have a type of like `pending`. That dispatch will go to all of the
+reducers and the state of `isLoading` will be set to `true`.
+
+With a success, eventually a response will be received and the Async Thunk Function will
+see there were no errors and automatically dispatch a second action with a type like
+`fulfilled`. This dispatch will go through all of the different reducers `data` will
+be updated and the `isLoading` flag will be set to `false`.
+
+With an error, the start of the request will be exactly the same as with a success.
+When error occurs, Async Thunk Function will see something went wrong and automatically
+dispatch an action with type like `rejected`. This dispatch will got through all of the
+reducers and `isLoading` is set to `false` and `error` will be set to the error object.
