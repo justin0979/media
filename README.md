@@ -47,11 +47,11 @@ Redux Toolkit Query will be used to handle albums and photos.
 
 1.  When user first comes to the application, a list of users must immediately be fetched
 
--   When request is made, show "Loading..." message so user knows that data is being fetched.
+    -   When request is made, show "Loading..." message so user knows that data is being fetched.
 
 2.  Once response is received:
 
--   Hide the "Loading..." message
--   Show the list of users that was just fetched
+    -   Hide the "Loading..." message
+    -   Show the list of users that was just fetched
 
 3.  If anything goes wrong with the request, then display an error message
