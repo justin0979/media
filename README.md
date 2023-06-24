@@ -58,7 +58,7 @@ Redux Toolkit Query will be used to handle albums and photos.
 
 3 peices of state will be added into the user's slice to track the above list.
 
-|          | Show Loading Message |      List of users       |  Show Error Message  |
-| :------: | :------------------: | :----------------------: | :------------------: |
-| property |     `isLoading`      |          `data`          |       `error`        |
-|   type   |       boolean        | Array of objects (users) | null \| error object |
+|              | Show Loading Message |      List of users       |  Show Error Message  |
+| :----------: | :------------------: | :----------------------: | :------------------: |
+| **property** |     `isLoading`      |          `data`          |       `error`        |
+|   **type**   |       boolean        | Array of objects (users) | null \| error object |
