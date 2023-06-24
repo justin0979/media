@@ -55,3 +55,10 @@ Redux Toolkit Query will be used to handle albums and photos.
     -   Show the list of users that was just fetched
 
 3.  If anything goes wrong with the request, then display an error message
+
+3 peices of state will be added into the user's slice to track the above list.
+
+| Show Loading Message |      List of users       |  Show Error Message  |
+| :------------------: | :----------------------: | :------------------: |
+|     `isLoading`      |          `data`          |       `error`        |
+|       boolean        | Array of objects (users) | null \| error object |
