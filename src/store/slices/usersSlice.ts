@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, SerializedError } from "@reduxjs/toolkit";
+import { fetchUsers } from "../thunks";
 
 interface UsersType {
   name: string;
@@ -8,7 +9,7 @@ interface UsersType {
 interface UsersState {
   data: UsersType[];
   isLoading: boolean;
-  error: Error | null;
+  error: SerializedError | null;
 }
 
 const usersSlice = createSlice({
@@ -19,6 +20,20 @@ const usersSlice = createSlice({
     error: null,
   } as UsersState,
   reducers: {},
+  extraReducers(builder) {
+    builder
+      .addCase(fetchUsers.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchUsers.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.data = action.payload;
+      })
+      .addCase(fetchUsers.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error;
+      });
+  },
 });
 
 export type { UsersType, UsersState };
