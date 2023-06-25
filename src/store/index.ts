@@ -7,5 +7,7 @@ const store = configureStore({
   },
 });
 
+export type AppDispatch = typeof store.dispatch;
 export type { UsersType, UsersState };
+export * from "./thunks";
 export { store };
