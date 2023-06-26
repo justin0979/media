@@ -7,6 +7,7 @@ const store = configureStore({
   },
 });
 
+// Inferred type for AppDispatch: { users: UsersState }
 export type AppDispatch = typeof store.dispatch;
 export type { UsersType, UsersState };
 export * from "./thunks";
