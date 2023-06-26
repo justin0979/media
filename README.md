@@ -82,3 +82,5 @@ With an error, the start of the request will be exactly the same as with a succe
 When error occurs, Async Thunk Function will see something went wrong and automatically
 dispatch an action with type like `rejected`. This dispatch will got through all of the
 reducers and `isLoading` is set to `false` and `error` will be set to the error object.
+The `action` in `(state, action) => {}` will have `action.error` property which will be
+set to `state.error`.
