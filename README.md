@@ -84,3 +84,28 @@ dispatch an action with type like `rejected`. This dispatch will got through all
 reducers and `isLoading` is set to `false` and `error` will be set to the error object.
 The `action` in `(state, action) => {}` will have `action.error` property which will be
 set to `state.error`.
+
+### Side Notes
+
+The default dispatch type will need to be changed to correctly dispatch thunks.<br />
+First, export the dispatch type from the configuredStore:
+
+```javascript
+import { configureStore } from "@reduxjs/toolkit";
+import { usersReducer } from "./slices";
+
+export const store = configureStore({
+    reducer: {
+        users: usersReducer,
+    },
+});
+
+// Inferred type: { users: UsersState }
+export type AppDispatch = typeof store.dispatch;
+```
+
+```javascript
+const dispatch = useDispatch<AppDispatch>();
+```
+
+Official docs from [Define Root State and Dispatch Types](https://redux-toolkit.js.org/tutorials/typescript#define-root-state-and-dispatch-types).
