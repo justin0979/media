@@ -85,6 +85,21 @@ reducers and `isLoading` is set to `false` and `error` will be set to the error 
 The `action` in `(state, action) => {}` will have `action.error` property which will be
 set to `state.error`.
 
+### "Fine-Grained" Loading State
+
+"Fine-Grained" loading state is maintaining separate state variables for each kind of
+request.
+
+When `+ Add User` button is clicked, a loading spinner should show only on that button.
+
+There are 2 options:
+
+|                   Option 1                    |                      Option 2                      |
+| :-------------------------------------------: | :------------------------------------------------: |
+| Keep track of requests in state in components |       Keep track of requests in redux store        |
+|                  `useState`                   | Use `requestId` that is returned from `dispatch()` |
+|      Good for really small applications       |            Good for larger applications            |
+
 ### Side Notes
 
 The default dispatch type will need to be changed to correctly dispatch thunks.<br />
