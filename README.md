@@ -139,6 +139,25 @@ _whether the request succeeds **or** fails_.
 
 A fix is to add `.unwrap()`, which returns a new `promise` that will follow the conventional rules.
 
+```javascript
+dispatch(thunk())
+    .unwrap()
+    .then(() => setIsLoadingUsers(false))
+    .catch((err: SerializedError) => {
+        setIsLoadingUsers(false);
+        setLoadingUsersError(err);
+    });
+```
+
+To remove redundant code (`setIsLoadingUsers(false)`), use `.finally()`:
+
+```javascript
+dispatch(thunk())
+    .unwrap()
+    .catch((err: SerializedError) => setLoadingUsersError(err))
+    .finally(() => setIsLoadingUsers(false));
+```
+
 <hr />
 
 </details>
