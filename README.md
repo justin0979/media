@@ -127,6 +127,8 @@ const dispatch = useDispatch<AppDispatch>();
 
 Official docs from [Define Root State and Dispatch Types](https://redux-toolkit.js.org/tutorials/typescript#define-root-state-and-dispatch-types).
 
+<hr />
+
 </details>
 
 <details>
@@ -134,5 +136,9 @@ Official docs from [Define Root State and Dispatch Types](https://redux-toolkit.
 
 `dispatch(fetchUsers())` will return a `promise`; however, the `promise`'s `.then()` gets called
 _whether the request succeeds **or** fails_.
+
+A fix is to add `.unwrap()`, which returns a new `promise` that will follow the conventional rules.
+
+<hr />
 
 </details>
