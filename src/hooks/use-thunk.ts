@@ -1,11 +1,15 @@
 import { useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
-import { AsyncThunk, SerializedError } from "@reduxjs/toolkit";
+import { AsyncThunkAction, SerializedError } from "@reduxjs/toolkit";
 import { AppDispatch, UsersType } from "../store";
 
 type RequestError = SerializedError | null;
 
-function useThunk(thunk: AsyncThunk<UsersType[], void, any>) {
+function useThunk(
+  thunk: (
+    arg?: UsersType,
+  ) => AsyncThunkAction<UsersType[], void, object>,
+) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<RequestError>(null);
   const dispatch = useDispatch<AppDispatch>();
@@ -14,13 +18,16 @@ function useThunk(thunk: AsyncThunk<UsersType[], void, any>) {
    *  Function to run the thunk, dispatch it and update the loading state
    *  and the error state.
    */
-  const runThunk = useCallback(() => {
-    setIsLoading(true);
-    dispatch(thunk())
-      .unwrap()
-      .catch((err: SerializedError) => setError(err))
-      .finally(() => setIsLoading(false));
-  }, [dispatch, thunk]);
+  const runThunk = useCallback(
+    (arg?: UsersType) => {
+      setIsLoading(true);
+      dispatch(thunk(arg))
+        .unwrap()
+        .catch((err: SerializedError) => setError(err))
+        .finally(() => setIsLoading(false));
+    },
+    [dispatch, thunk],
+  );
 
   /*
    *  Without `as const`, will give following errors:

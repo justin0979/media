@@ -6,7 +6,7 @@ const removeUser = createAsyncThunk(
   "users/remove",
   async (user: UsersType) => {
     const response = await axios.delete(
-      `http://localhost:3005/users/${user.id}`,
+      `http://localhost:3005/users/${user && user.id}`,
     );
 
     // FIX!!!!
