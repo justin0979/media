@@ -100,6 +100,33 @@ There are 2 options:
 |                  `useState`                   | Use `requestId` that is returned from `dispatch()` |
 |      Good for really small applications       |            Good for larger applications            |
 
+## Custom Hooks
+
+Goal is to wrap up the loading state & error state (used with `useState` in `UsersList` component).
+
+Instead of having two separate state variables:
+
+```javascript
+const [isLoadingUsers, setIsLoadingUsers] = useState(false);
+const [loadingUsersError, setLoadingUsersError] = useState(null);
+```
+
+use:
+
+```javascript
+import { fetchUsers } from "../store";
+
+const [doFetchUsers, isLoadingUsers, loadingUsersError] =
+    useThunk(fetchUsers);
+```
+
+-   `doFetchUsers` - function to start data loading process. Calling this function does the following:
+    -   run the thunk and dispatch the result
+    -   update loading state and error state appropriately
+-   `isLoadingUsers` - a boolean that keeps track of whether users are being fetched.
+-   `loadingUsersError` - will be `null` or an error object. Keeps track of whether there was an error
+    fetching users.
+
 ### Side Notes
 
 <details>
