@@ -1,31 +1,61 @@
-import { useEffect, useState } from "react";
-import { SerializedError } from "@reduxjs/toolkit";
+import { useEffect, useState, useCallback } from "react";
+import { SerializedError, AsyncThunk } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, UsersState, fetchUsers, addUser } from "../store";
+import {
+  AppDispatch,
+  UsersType,
+  UsersState,
+  fetchUsers,
+  addUser,
+} from "../store";
 import Button from "./Button";
 import Skeleton from "./Skeleton";
 
-type ReqErr = SerializedError | null;
+type RequestError = SerializedError | null;
+
+function useThunk(thunk: AsyncThunk<UsersType[], void, any>) {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<RequestError>(null);
+  const dispatch = useDispatch<AppDispatch>();
+
+  /*
+   *  Function to run the thunk, dispatch it and update the loading state
+   *  and the error state.
+   */
+  const runThunk = useCallback(() => {
+    setIsLoading(true);
+    dispatch(thunk())
+      .unwrap()
+      .catch((err: SerializedError) => setError(err))
+      .finally(() => setIsLoading(false));
+  }, [dispatch, thunk]);
+
+  /*
+   *  Without `as const`, will give following errors:
+   *   "TS2349: This expression is not callable. Not all constituents of type
+   *   'boolean | SerialziedError | (() => void)' are callable."
+   *  "TS2721: Cannot invoke an object which is possible 'null'."
+   *  see https://www.github.com/microsoft/TypeScript/issues/35423
+   *  see https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-4.html#const-assertions
+   */
+  return [runThunk, isLoading, error] as const;
+}
 
 function UsersList() {
-  const [isLoadingUsers, setIsLoadingUsers] = useState(false);
-  const [loadingUsersError, setLoadingUsersError] =
-    useState<ReqErr>(null);
+  const [doFetchUsers, isLoadingUsers, loadingUsersError] =
+    useThunk(fetchUsers);
+
   const [isCreatingUser, setIsCreatingUser] = useState(false);
   const [creatingUserError, setCreatingUserError] =
-    useState<ReqErr>(null);
+    useState<RequestError>(null);
   const dispatch = useDispatch<AppDispatch>();
   const { data } = useSelector((state: { users: UsersState }) => {
     return state.users;
   });
 
   useEffect(() => {
-    setIsLoadingUsers(true);
-    dispatch(fetchUsers())
-      .unwrap()
-      .catch((err: SerializedError) => setLoadingUsersError(err))
-      .finally(() => setIsLoadingUsers(false));
-  }, [dispatch]);
+    doFetchUsers();
+  }, [doFetchUsers]);
 
   if (isLoadingUsers) {
     return <Skeleton times={data.length} className="h-10 w-full" />;
