@@ -103,7 +103,7 @@ There are 2 options:
 ### Side Notes
 
 <details>
-<summary>`AppDispatch`</summary>
+<summary>AppDispatch</summary>
 The default dispatch type will need to be changed to correctly dispatch thunks.<br />
 First, export the dispatch type from the configuredStore:
 
@@ -130,7 +130,9 @@ Official docs from [Define Root State and Dispatch Types](https://redux-toolkit.
 </details>
 
 <details>
-<summary>`dispatch(fetchUsers())`</summary>
+<summary>dispatch(fetchUsers())</summary>
+
 `dispatch(fetchUsers())` will return a `promise`; however, the `promise`'s `.then()` gets called
 _whether the request succeeds **or** fails_.
+
 </details>
