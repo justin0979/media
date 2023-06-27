@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, ReactNode } from "react";
 import { useSelector } from "react-redux";
 import { UsersState, fetchUsers, addUser } from "../store";
 import Button from "./Button";
@@ -19,27 +19,26 @@ function UsersList() {
     doFetchUsers();
   }, [doFetchUsers]);
 
+  let content: ReactNode;
   if (isLoadingUsers) {
-    return <Skeleton times={data.length} className="h-10 w-full" />;
-  }
-
-  if (loadingUsersError) {
-    return <div>Error fetching data...</div>;
+    content = <Skeleton times={data.length} className="h-10 w-full" />;
+  } else if (loadingUsersError) {
+    content = <div>Error fetching data...</div>;
+  } else {
+    content = data.map((user) => {
+      return (
+        <div key={user.id} className="mb-2 border rounded">
+          <div className="flex p-2 justify-between items-center cursor-pointer">
+            {user.name}
+          </div>
+        </div>
+      );
+    });
   }
 
   const handleUserAdd = () => {
     doCreateUser();
   };
-
-  const renderedUsers = data.map((user) => {
-    return (
-      <div key={user.id} className="mb-2 border rounded">
-        <div className="flex p-2 justify-between items-center cursor-pointer">
-          {user.name}
-        </div>
-      </div>
-    );
-  });
 
   return (
     <div>
@@ -50,7 +49,7 @@ function UsersList() {
         </Button>
         {creatingUserError && "Error creating user..."}
       </div>
-      {renderedUsers}
+      {content}
     </div>
   );
 }
