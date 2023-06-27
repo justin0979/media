@@ -1,5 +1,5 @@
 import { createSlice, SerializedError } from "@reduxjs/toolkit";
-import { fetchUsers, addUser } from "../thunks";
+import { fetchUsers, addUser, removeUser } from "../thunks";
 
 interface UsersType {
   name: string;
@@ -43,6 +43,20 @@ const usersSlice = createSlice({
         state.data.push(action.payload);
       })
       .addCase(addUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error;
+      });
+
+    builder
+      .addCase(removeUser.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(removeUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        // FIX ME!!!!
+        console.log(action);
+      })
+      .addCase(removeUser.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error;
       });
