@@ -8,10 +8,10 @@ interface UsersListItemProps {
 }
 
 function UsersListItem({ user }: UsersListItemProps) {
-  const [doRemoveUser, isLoading, error] = useThunk(removeUser);
+  const [doRemoveUser, isLoading, error] = useThunk(removeUser, user);
 
   const handleClick = () => {
-    doRemoveUser(user);
+    doRemoveUser();
   };
 
   return (
