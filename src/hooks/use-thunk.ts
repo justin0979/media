@@ -4,7 +4,7 @@ import { AsyncThunkAction, SerializedError } from "@reduxjs/toolkit";
 import { AppDispatch, UsersType } from "../store";
 
 type RequestError = SerializedError | null;
-
+type UseThunkType = [() => Promise<unknown>, boolean, RequestError];
 type AsyncThunkActionCreator<R, T> = (
   args: T,
 ) => AsyncThunkAction<R, T, object>;
@@ -12,7 +12,7 @@ type AsyncThunkActionCreator<R, T> = (
 function useThunk<R, T>(
   thunk: AsyncThunkActionCreator<R, T>,
   args: T,
-): [() => Promise<unknown>, boolean, RequestError] {
+): UseThunkType {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<RequestError>(null);
   const dispatch = useDispatch<AppDispatch>();
@@ -21,7 +21,7 @@ function useThunk<R, T>(
     setIsLoading(true);
     return dispatch(thunk(args))
       .unwrap()
-      .catch((err) => setIsLoading(err))
+      .catch((err: SerializedError) => setError(err))
       .finally(() => setIsLoading(false));
   }, [dispatch, thunk, args]);
 
