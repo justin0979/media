@@ -22,6 +22,7 @@ function UsersListItem({ user }: UsersListItemProps) {
             className="mr-3"
             loading={isLoading}
             onClick={handleClick}
+            danger
           >
             <GoTrashcan />
           </Button>
