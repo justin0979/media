@@ -5,7 +5,7 @@ const albumsApi = createApi({
   reducerPath: "albums",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3005" }),
   endpoints: (build) => ({
-    fetchAlbums: build.query<AlbumsType, UsersType>({
+    fetchAlbums: build.query<AlbumsType[], UsersType>({
       query: (user) => ({
         url: "/albums",
         params: {
