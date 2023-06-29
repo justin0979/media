@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { AsyncThunkAction, SerializedError } from "@reduxjs/toolkit";
-import { AppDispatch, UsersType } from "../store";
+import { AppDispatch } from "../store";
 
 type RequestError = SerializedError | null;
 type UseThunkType = [() => Promise<unknown>, boolean, RequestError];
