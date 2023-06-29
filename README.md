@@ -122,15 +122,15 @@ fetched and listed.
 
 Questions to ask for endpoints:
 
-|                          Questions                           |    Fetching    |    Creating     |     Removing     |
-| :----------------------------------------------------------: | :------------: | :-------------: | :--------------: |
-|                       What's the goal?                       |  fetch albums  | create an album | remove an album  |
-|                  What's a simplified name?                   |  fetchAlbums   |   createAlbum   |   removeAlbum    |
-|                Is this a query or a mutation?                |     query      |    mutation     |     mutation     |
-| What's the path for this request, relative to the `baseUrl`? |    /albums     |     /albums     | /albums/ +userId |
-|          What's the query string for this request?           | ?userId=userId |        -        |        -         |
-|             What's the method for this request?              |      GET       |      POST       |       POST       |
-|              What's the body for this request?               |       -        | {title, userId} |        -         |
+|                          Questions                           |     Fetching     |     Creating      |      Removing      |
+| :----------------------------------------------------------: | :--------------: | :---------------: | :----------------: |
+|                       What's the goal?                       |   fetch albums   |  create an album  |  remove an album   |
+|                  What's a simplified name?                   |  `fetchAlbums`   |   `createAlbum`   |   `removeAlbum`    |
+|                Is this a query or a mutation?                |      query       |     mutation      |      mutation      |
+| What's the path for this request, relative to the `baseUrl`? |    `/albums`     |     `/albums`     | `/albums/ +userId` |
+|          What's the query string for this request?           | `?userId=userId` |         -         |         -          |
+|             What's the method for this request?              |       GET        |       POST        |        POST        |
+|              What's the body for this request?               |        -         | `{title, userId}` |         -          |
 
 ## Custom Hooks
 
