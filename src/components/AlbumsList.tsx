@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { UsersType } from "../store";
+import { UsersType } from "../types";
 
 interface AlbumsListProps {
   user: UsersType;

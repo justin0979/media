@@ -1,10 +1,6 @@
 import { createSlice, SerializedError } from "@reduxjs/toolkit";
 import { fetchUsers, addUser, removeUser } from "../thunks";
-
-interface UsersType {
-  name: string;
-  id?: number;
-}
+import { UsersType } from "../../types";
 
 interface UsersState {
   data: UsersType[];
@@ -64,5 +60,5 @@ const usersSlice = createSlice({
   },
 });
 
-export type { UsersType, UsersState };
+export type { UsersState };
 export const usersReducer = usersSlice.reducer;

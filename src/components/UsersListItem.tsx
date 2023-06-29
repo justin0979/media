@@ -3,7 +3,8 @@ import { GoTrashcan } from "react-icons/go";
 import Button from "./Button";
 import ExpandablePanel from "./ExpandablePanel";
 import AlbumsList from "./AlbumsList";
-import { UsersType, removeUser } from "../store";
+import { removeUser } from "../store";
+import { UsersType } from "../types";
 import { useThunk } from "../hooks";
 
 interface UsersListItemProps {
