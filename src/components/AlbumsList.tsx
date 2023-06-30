@@ -26,13 +26,14 @@ function AlbumsList({ user }: AlbumsListProps) {
   };
 
   let content: ReactNode;
-  if (data != undefined) {
-    if (isLoading) {
-      content = <Skeleton times={3} />;
-    } else if (error) {
-      content = <div>Error loading albums.</div>;
-    } else {
-      content = data.map((album) => {
+  if (isLoading) {
+    content = <Skeleton className="h-10 w-full" times={3} />;
+  } else if (error) {
+    content = <div>Error loading albums.</div>;
+  } else {
+    content =
+      data &&
+      data.map((album) => {
         const header = <div>{album.title}</div>;
         return (
           <ExpandablePanel key={album.id} header={header}>
@@ -40,14 +41,17 @@ function AlbumsList({ user }: AlbumsListProps) {
           </ExpandablePanel>
         );
       });
-    }
   }
 
   return (
     <div>
-      <div>
-        Albums for {user.name}
-        <Button onClick={handleAddAlbum} primary>
+      <div className="m-2 flex flex-row items-center justify-between">
+        <h3 className="text-lg font-bold">Albums for {user.name}</h3>
+        <Button
+          loading={results.isLoading}
+          onClick={handleAddAlbum}
+          primary
+        >
           + Add Album
         </Button>
       </div>
