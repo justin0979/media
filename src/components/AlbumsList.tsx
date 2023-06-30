@@ -11,10 +11,14 @@ interface AlbumsListProps {
 
 function AlbumsList({ user }: AlbumsListProps) {
   /*
-   *  data is automatically retrieved without the need of useEffect hook.
-   *  isLoading is only true on initial fetch and will always be false afterwards.
+   *  Queries run immediately when the component is displayed on the screen (by default).
+   *  `data` is automatically retrieved without the need of useEffect hook.
+   *  `isLoading` is only true on initial fetch and will always be false afterwards.
    */
   const { data, error, isLoading } = useFetchAlbumsQuery(user);
+  /*
+   *  Mutations give you a function to run hen you want to change some data.
+   */
   const [addAlbum, results] = useAddAlbumMutation();
 
   const handleAddAlbum = () => {
