@@ -8,7 +8,9 @@ const albumsApi = createApi({
   tagTypes: ["Album"],
   endpoints: (build) => ({
     addAlbum: build.mutation<AlbumsType[], UsersType>({
-      invalidatesTags: ["Album"],
+      invalidatesTags: (result, error, user) => [
+        { type: "Album", id: user.id },
+      ],
       query: (user) => {
         return {
           url: "/albums",
@@ -21,7 +23,9 @@ const albumsApi = createApi({
       },
     }),
     fetchAlbums: build.query<AlbumsType[], UsersType>({
-      providesTags: ["Album"],
+      providesTags: (result, error, user) => [
+        { type: "Album", id: user.id },
+      ],
       query: (user) => ({
         url: "/albums",
         params: {
