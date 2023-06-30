@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { UsersType } from "../types";
-import { useFetchAlbumsQuery } from "../store";
+import { useFetchAlbumsQuery, useAddAlbumMutation } from "../store";
 import Skeleton from "./Skeleton";
 import ExpandablePanel from "./ExpandablePanel";
 import Button from "./Button";
@@ -15,6 +15,11 @@ function AlbumsList({ user }: AlbumsListProps) {
    *  isLoading is only true on initial fetch and will always be false afterwards.
    */
   const { data, error, isLoading } = useFetchAlbumsQuery(user);
+  const [addAlbum, results] = useAddAlbumMutation();
+
+  const handleAddAlbum = () => {
+    addAlbum(user);
+  };
 
   let content: ReactNode;
   if (data != undefined) {
@@ -36,7 +41,12 @@ function AlbumsList({ user }: AlbumsListProps) {
 
   return (
     <div>
-      <div>Albums for {user.name}</div>
+      <div>
+        Albums for {user.name}
+        <Button onClick={handleAddAlbum} primary>
+          + Add Album
+        </Button>
+      </div>
       <div>{content}</div>
     </div>
   );
