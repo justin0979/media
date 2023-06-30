@@ -1,10 +1,23 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { faker } from "@faker-js/faker";
 import { AlbumsType, UsersType } from "../../types";
 
 const albumsApi = createApi({
   reducerPath: "albums",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3005" }),
   endpoints: (build) => ({
+    addAlbum: build.mutation<AlbumsType[], UsersType>({
+      query: (user) => {
+        return {
+          url: "/albums",
+          method: "POST",
+          body: {
+            userId: user.id,
+            title: faker.commerce.productName(),
+          },
+        };
+      },
+    }),
     fetchAlbums: build.query<AlbumsType[], UsersType>({
       query: (user) => ({
         url: "/albums",
@@ -17,5 +30,5 @@ const albumsApi = createApi({
   }),
 });
 
-export const { useFetchAlbumsQuery } = albumsApi;
+export const { useAddAlbumMutation, useFetchAlbumsQuery } = albumsApi;
 export { albumsApi };
