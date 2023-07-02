@@ -5,6 +5,7 @@ import UsersList from "./UsersList";
 import UsersListItem from "./UsersListItem";
 import ExpandablePanel from "./ExpandablePanel";
 import AlbumsList from "./AlbumsList";
+import PhotosList from "./PhotosList";
 
 export {
   Button,
@@ -14,4 +15,5 @@ export {
   UsersListItem,
   ExpandablePanel,
   AlbumsList,
+  PhotosList,
 };
