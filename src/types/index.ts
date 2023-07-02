@@ -10,7 +10,7 @@ export interface AlbumsType {
 }
 
 export interface PhotosType {
-  title: string;
+  url: string;
   id: number;
   userId: number;
 }
