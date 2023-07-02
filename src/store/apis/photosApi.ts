@@ -4,7 +4,7 @@ import { PhotosType, AlbumsType } from "../../types";
 
 const photosApi = createApi({
   reducerPath: "photos",
-  baseQuery: fetchBaseQuery({ baseUrl: "http:localhost:3005" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3005" }),
   endpoints: (builder) => ({
     fetchPhotos: builder.query<PhotosType[], AlbumsType>({
       query: (album) => ({
