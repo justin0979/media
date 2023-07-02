@@ -4,6 +4,7 @@ import { useFetchAlbumsQuery, useAddAlbumMutation } from "../store";
 import Skeleton from "./Skeleton";
 import ExpandablePanel from "./ExpandablePanel";
 import Button from "./Button";
+import AlbumsListItem from "./AlbumsListItem";
 
 interface AlbumsListProps {
   user: UsersType;
@@ -13,9 +14,9 @@ function AlbumsList({ user }: AlbumsListProps) {
   /*
    *  Queries run immediately when the component is displayed on the screen (by default).
    *  `data` is automatically retrieved without the need of useEffect hook.
-   *  `isLoading` is only true on initial fetch and will always be false afterwards.
+   *  `isFetching` is only true on initial fetch and will always be false afterwards.
    */
-  const { data, error, isLoading } = useFetchAlbumsQuery(user);
+  const { data, error, isFetching } = useFetchAlbumsQuery(user);
   /*
    *  Mutations give you a function to run hen you want to change some data.
    */
@@ -26,7 +27,7 @@ function AlbumsList({ user }: AlbumsListProps) {
   };
 
   let content: ReactNode;
-  if (isLoading) {
+  if (isFetching) {
     content = <Skeleton className="h-10 w-full" times={3} />;
   } else if (error) {
     content = <div>Error loading albums.</div>;
@@ -34,12 +35,7 @@ function AlbumsList({ user }: AlbumsListProps) {
     content =
       data &&
       data.map((album) => {
-        const header = <div>{album.title}</div>;
-        return (
-          <ExpandablePanel key={album.id} header={header}>
-            Album's Photos Content
-          </ExpandablePanel>
-        );
+        return <AlbumsListItem key={album.id} album={album} />;
       });
   }
 

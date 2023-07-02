@@ -23,5 +23,9 @@ setupListeners(store.dispatch);
 export type AppDispatch = typeof store.dispatch;
 export type { UsersState };
 export * from "./thunks";
-export { useFetchAlbumsQuery, useAddAlbumMutation } from "./apis";
+export {
+  useRemoveAlbumMutation,
+  useFetchAlbumsQuery,
+  useAddAlbumMutation,
+} from "./apis";
 export { store };

@@ -13,17 +13,29 @@ const albumsApi = createApi({
   reducerPath: "albums",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3005",
+    // note: REMOVE PAUSE() FOR PRODUCTION
     fetchFn: async (...args) => {
-      // Note: REMOVE FOR PRODUCTION
       await pause(1000);
       return fetch(...args);
     },
+    // note: REMOVE PAUSE() ABOVE FOR PRODUCTION
   }),
-  tagTypes: ["Album"],
+  tagTypes: ["Album", "UsersAlbums"],
   endpoints: (build) => ({
+    removeAlbum: build.mutation<AlbumsType[], AlbumsType>({
+      invalidatesTags: (result, error, album) => {
+        return [{ type: "Album", id: album.id }];
+      },
+      query: (album) => {
+        return {
+          url: `/albums/${album.id}`,
+          method: "DELETE",
+        };
+      },
+    }),
     addAlbum: build.mutation<AlbumsType[], UsersType>({
       invalidatesTags: (result, error, user) => [
-        { type: "Album", id: user.id },
+        { type: "UsersAlbums", id: user.id },
       ],
       query: (user) => {
         return {
@@ -37,9 +49,14 @@ const albumsApi = createApi({
       },
     }),
     fetchAlbums: build.query<AlbumsType[], UsersType>({
-      providesTags: (result, error, user) => [
-        { type: "Album", id: user.id },
-      ],
+      providesTags: (result, error, user) => {
+        const tags: { type: "Album" | "UsersAlbums"; id: number }[] =
+          result
+            ? result.map((album) => ({ type: "Album", id: album.id }))
+            : [];
+        tags.push({ type: "UsersAlbums", id: user.id });
+        return tags;
+      },
       query: (user) => ({
         url: "/albums",
         params: {
@@ -51,5 +68,9 @@ const albumsApi = createApi({
   }),
 });
 
-export const { useAddAlbumMutation, useFetchAlbumsQuery } = albumsApi;
+export const {
+  useRemoveAlbumMutation,
+  useAddAlbumMutation,
+  useFetchAlbumsQuery,
+} = albumsApi;
 export { albumsApi };
