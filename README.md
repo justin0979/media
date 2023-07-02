@@ -130,7 +130,7 @@ fetched and listed.
 |   url   | string |       URL where the image is hosted        |
 | albumId | number | ID of the album that this photo belongs to |
 
-Questions to ask for endpoints:
+#### Questions to ask for endpoints:
 
 | Questions                                                    |     Fetching     |     Creating      |      Removing      |
 | :----------------------------------------------------------- | :--------------: | :---------------: | :----------------: |
