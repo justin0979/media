@@ -136,18 +136,22 @@ Questions to ask for endpoints:
 
 #### Accessing a Specific User's Albums
 
-Since the `Ablum` object contains the property `userId`, it is easy to find which albums belong to which user.
-However, if the album's object did not contain the `userId` property, how could it be determined which album
-belonged to which user?
+Since the `Album` object contains the property `userId`, it is easy to find which albums belong to which user
+when the user's dropdown button is clicked to display the list of albums. However, what if the album's object
+did not contain the `userId` property, how could it be determined which album belonged to which user?
 
 The implementation of fetching, adding and removing albums of a specific user follows the method of **not**
-using `album.userId`. Instead, the list of a user's albums will be added into an array with the object
-`{type: "Album", id: album.id}` along with the last object being pushed into the array
-`{type: "UsersAlbums", id: user.id}`. This last object identifies which albums belong to which user.
+using `album.userId`. Instead, a user's list of albums will be identified as that users with a tag. The tag
+`{type: "UsersAlbums", id: user.id}` will be the last object pushed into an array of albums' tags
+`{type: "Album", id: album.id}`. This last object identifies which albums belong to which user whenever the
+dropdown menu is displayed.
 
-Adding albums to a user's albums list are tagged with the object `{type: "UsersAlbums", id: user.id}`. This
-list of albums owner is identified with the object `{type: "UsersAlbums", id: user.id}` from when the list
-was fetched.
+Fetching the list of albums belonging to a specified user will have the tag `{type: UsersAlbums, id: user.id}`
+marking all of the albums in this array as this user's album list.
+
+Adding an album to a user's list requires that the `user` object be passed to the `useAddAlbumMutation()`, so,
+the tag `{type: "UsersAblums", id: user.id}` will mark the fetched album list as being stale and re-run
+the query to fetch the albums.
 
 Removing albums from a user's album list are tageed with `{type: "Album", id: album.id}` (instead of
 `{type: "Album", id: album.userId}`) since the fetched list has `{type: "UsersAlbums, id: user.id"}` to
