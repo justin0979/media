@@ -1,6 +1,6 @@
 export interface UsersType {
   name: string;
-  id?: number;
+  id: number;
 }
 
 export interface AlbumsType {
