@@ -134,6 +134,25 @@ Questions to ask for endpoints:
 | What's the method for this request?                          |       GET        |       POST        |        POST        |
 | What's the body for this request?                            |        -         | `{title, userId}` |         -          |
 
+#### Accessing a Specific User's Albums
+
+Since the `Ablum` object contains the property `userId`, it is easy to find which albums belong to which user.
+However, if the album's object did not contain the `userId` property, how could it be determined which album
+belonged to which user?
+
+The implementation of fetching, adding and removing albums of a specific user follows the method of **not**
+using `album.userId`. Instead, the list of a user's albums will be added into an array with the object
+`{type: "Album", id: album.id}` along with the last object being pushed into the array
+`{type: "UsersAlbums", id: user.id}`. This last object identifies which albums belong to which user.
+
+Adding albums to a user's albums list are tagged with the object `{type: "UsersAlbums", id: user.id}`. This
+list of albums owner is identified with the object `{type: "UsersAlbums", id: user.id}` from when the list
+was fetched.
+
+Removing albums from a user's album list are tageed with `{type: "Album", id: album.id}` (instead of
+`{type: "Album", id: album.userId}`) since the fetched list has `{type: "UsersAlbums, id: user.id"}` to
+identify which user's list is being mutated.
+
 ## Custom Hooks
 
 Goal is to wrap up the loading state & error state (used with `useState` in `UsersList` component).
