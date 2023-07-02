@@ -8,3 +8,9 @@ export interface AlbumsType {
   id: number;
   userId: number;
 }
+
+export interface PhotosType {
+  title: string;
+  id: number;
+  userId: number;
+}

@@ -1,3 +1,4 @@
+import { useFetchPhotosQuery } from "../store";
 import { AlbumsType } from "../types";
 
 interface PhotosListProps {
@@ -5,6 +6,8 @@ interface PhotosListProps {
 }
 
 function PhotosList({ album }: PhotosListProps) {
+  useFetchPhotosQuery(album);
+
   return (
     <div>
       <h1>Photos List Item</h1>
