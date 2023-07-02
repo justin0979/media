@@ -130,6 +130,18 @@ fetched and listed.
 |   url   | string |       URL where the image is hosted        |
 | albumId | number | ID of the album that this photo belongs to |
 
+#### Steps for Creating a RTK Query API
+
+1.  Identify a group of related requests that your app needs to make
+2.  Make a new file that will create the applications
+3.  The API needs to store a ton of state related to data, request status, errors. Add a `reducerPath`
+4.  The API needs to know where to send requests. Add a `baseQuery`
+5.  The API needs to know what specific requests you want to make. Add `endpoints`
+6.  Export all of the automatically generated Hooks
+7.  Connect the API to the store. Reducer, middleware, and listeners
+8.  Export the hooks from the `store/index.ts` file
+9.  Use the generated hooks in a component
+
 #### Questions to ask for endpoints:
 
 | Questions                                                    |     Fetching     |     Creating      |      Removing      |
