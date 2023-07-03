@@ -33,7 +33,7 @@ const photosApi = createApi({
         url: "/photos",
         body: {
           albumId: album.id,
-          url: faker.image.abstract(150, 150, true),
+          url: faker.image.url({ height: 150, width: 150 }),
         },
       }),
     }),
