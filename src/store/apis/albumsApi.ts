@@ -48,14 +48,21 @@ const albumsApi = createApi({
         };
       },
     }),
+    /*
+     *  See Redux Toolkit docs for following method
+     *  https://redux-toolkit.js.org/rtk-query/usage-with-typescript#typing-providestagsinvalidatestags
+     */
     fetchAlbums: build.query<AlbumsType[], UsersType>({
       providesTags: (result, error, user) => {
-        const tags: { type: "Album" | "UsersAlbums"; id: number }[] =
-          result
-            ? result.map((album) => ({ type: "Album", id: album.id }))
-            : [];
-        tags.push({ type: "UsersAlbums", id: user.id });
-        return tags;
+        return result
+          ? [
+              ...result.map((album) => ({
+                type: "Album" as const,
+                id: album.id,
+              })),
+              { type: "UsersAlbums", id: user.id },
+            ]
+          : [{ type: "UsersAlbums", id: user.id }];
       },
       query: (user) => ({
         url: "/albums",
