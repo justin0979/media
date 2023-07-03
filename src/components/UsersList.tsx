@@ -7,14 +7,10 @@ import UsersListItem from "./UsersListItem";
 import { useThunk } from "../hooks";
 
 function UsersList() {
-  const [doFetchUsers, isLoadingUsers, loadingUsersError] = useThunk(
-    fetchUsers,
-    null,
-  );
-  const [doCreateUser, isCreatingUser, creatingUserError] = useThunk(
-    addUser,
-    null,
-  );
+  const [doFetchUsers, isLoadingUsers, loadingUsersError] =
+    useThunk(fetchUsers);
+  const [doCreateUser, isCreatingUser, creatingUserError] =
+    useThunk(addUser);
 
   const { data } = useSelector((state: { users: UsersState }) => {
     return state.users;

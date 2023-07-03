@@ -11,7 +11,7 @@ type AsyncThunkActionCreator<R, T> = (
 
 function useThunk<R, T>(
   thunk: AsyncThunkActionCreator<R, T>,
-  args: T,
+  args: T | null = null,
 ): UseThunkType {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<RequestError>(null);
@@ -19,7 +19,7 @@ function useThunk<R, T>(
 
   const runThunk = useCallback(() => {
     setIsLoading(true);
-    return dispatch(thunk(args))
+    return dispatch(thunk(args as T))
       .unwrap()
       .catch((err: SerializedError) => setError(err))
       .finally(() => setIsLoading(false));
