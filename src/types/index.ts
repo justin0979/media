@@ -12,5 +12,5 @@ export interface AlbumsType {
 export interface PhotosType {
   url: string;
   id: number;
-  userId: number;
+  albumId: number;
 }
