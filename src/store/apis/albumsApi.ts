@@ -52,8 +52,13 @@ const albumsApi = createApi({
      *  See Redux Toolkit docs for following method
      *  https://redux-toolkit.js.org/rtk-query/usage-with-typescript#typing-providestagsinvalidatestags
      *
+     *  The return type of the array in providesTags is:
+     *    { type: "Album" | "UsersAlbums"; id: number; }
+     *
      *  The `as const` is used since TypeScript will broaden the `type` prop to
-     *  `string` when spreading the mapped array.
+     *  `string` when, instead of just "Album", spreading the mapped array.
+     *  So, without `as const`, the type would be:
+     *    { type: string; id: number; }
      *
      *  Without `as const`, will get error:
      *    Type 'string' is not assignable to type '"Album" | "UsersAlbums"'.
